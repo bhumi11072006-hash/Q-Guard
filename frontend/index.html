@@ -1,0 +1,680 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080d1b">
+    <meta name="description" content="Q-Guard Quantum Error Detection and Recovery Simulator">
+    <title>Q-Guard | Quantum Error Simulator</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<div class="background-glow glow-one"></div>
+<div class="background-glow glow-two"></div>
+
+<div class="app-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="brand">
+            <div class="brand-logo">Q</div>
+            <div class="brand-info">
+                <h2>Q-Guard</h2>
+                <p>QUANTUM LAB</p>
+            </div>
+            <button class="sidebar-close" id="sidebarClose">×</button>
+        </div>
+
+        <div class="sidebar-content">
+
+            <div class="nav-section">
+                <p class="nav-heading">WORKSPACE</p>
+
+                <nav class="navigation">
+                    <a href="#dashboard" class="nav-link active" data-page="dashboard">
+                        <span class="nav-icon">▦</span> Dashboard
+                    </a>
+
+                    <a href="#simulator" class="nav-link" data-page="simulator">
+                        <span class="nav-icon">⚛</span> Simulator
+                    </a>
+
+                    <a href="#analytics" class="nav-link" data-page="analytics">
+                        <span class="nav-icon">▥</span> Analytics
+                    </a>
+
+                    <a href="#history" class="nav-link" data-page="history">
+                        <span class="nav-icon">◷</span> Simulation History
+                    </a>
+                </nav>
+            </div>
+
+            <div class="nav-section">
+                <p class="nav-heading">RESOURCES</p>
+                <nav class="navigation">
+                    <a href="#learning" class="nav-link" data-page="learning">
+                        <span class="nav-icon">✧</span> Learning Center
+                    </a>
+                    <a href="#about" class="nav-link" data-page="about">
+                        <span class="nav-icon">ⓘ</span> About Q-Guard
+                    </a>
+                </nav>
+            </div>
+
+        </div>
+
+        <div class="sidebar-bottom">
+            <div class="system-card">
+                <div class="system-card-top">
+                    <span class="status-indicator"></span>
+                    System Status
+                </div>
+                <h4 id="systemStatus">Checking connection...</h4>
+                <p id="systemDescription">Connecting to simulation engine</p>
+            </div>
+
+            <div class="sidebar-user">
+                <div class="user-avatar">Q</div>
+                <div class="user-info">
+                    <h4>Quantum Workspace</h4>
+                    <p>Research Environment</p>
+                </div>
+            </div>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-toggle" id="menuToggle">☰</button>
+                <div class="breadcrumb">
+                    <span>Q-Guard</span>
+                    <span>/</span>
+                    <strong id="currentPageName">Dashboard</strong>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+                <div class="connection-status">
+                    <span class="status-indicator"></span>
+                    <span id="connectionText">Connecting</span>
+                </div>
+                <button class="icon-button" id="themeToggle">☾</button>
+                <div class="topbar-avatar">Q</div>
+            </div>
+        </header>
+
+
+        <div class="page-content">
+
+            <!-- DASHBOARD -->
+            <section class="page-section active" id="dashboard">
+
+                <div class="page-heading">
+                    <div>
+                        <p class="eyebrow">QUANTUM COMPUTING ENVIRONMENT</p>
+                        <h1>Dashboard <span>✧</span></h1>
+                        <p class="page-description">
+                            Monitor quantum simulations, detect errors and explore recovery performance.
+                        </p>
+                    </div>
+                    <button class="primary-button" data-navigate="simulator">
+                        ＋ New Simulation
+                    </button>
+                </div>
+
+                <div class="welcome-banner">
+                    <div class="welcome-content">
+                        <div class="welcome-tag">
+                            <span class="welcome-tag-dot"></span>
+                            QUANTUM ERROR CORRECTION
+                        </div>
+                        <h2>Protecting Quantum Information.</h2>
+                        <p>
+                            Simulate quantum errors, analyze error syndromes and
+                            evaluate recovery performance in one workspace.
+                        </p>
+                        <button class="banner-button" data-navigate="simulator">
+                            Launch Simulator →
+                        </button>
+                    </div>
+
+                    <div class="welcome-visual">
+                        <div class="quantum-ring ring-one"></div>
+                        <div class="quantum-ring ring-two"></div>
+                        <div class="quantum-ring ring-three"></div>
+                        <div class="quantum-core">Q</div>
+                    </div>
+                </div>
+
+                <div class="section-title-row">
+                    <div>
+                        <p class="eyebrow">OVERVIEW</p>
+                        <h2>Simulation Statistics</h2>
+                    </div>
+                    <span class="updated-label">Live data</span>
+                </div>
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon purple-icon">⚛</div>
+                            <span class="stat-label">TOTAL SIMULATIONS</span>
+                        </div>
+                        <h2 id="totalSimulations">0</h2>
+                        <p>Recorded experiments</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon blue-icon">◈</div>
+                            <span class="stat-label">AVERAGE FIDELITY</span>
+                        </div>
+                        <h2 id="averageFidelity">--</h2>
+                        <p>Quantum state accuracy</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon green-icon">✓</div>
+                            <span class="stat-label">RECOVERY SUCCESS</span>
+                        </div>
+                        <h2 id="recoveryRate">--</h2>
+                        <p>Error correction efficiency</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon orange-icon">⌁</div>
+                            <span class="stat-label">LOGICAL ERROR RATE</span>
+                        </div>
+                        <h2 id="logicalErrorRate">--</h2>
+                        <p>Logical error probability</p>
+                    </div>
+
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="panel chart-panel">
+                        <div class="panel-heading">
+                            <div>
+                                <h3>Simulation Performance</h3>
+                                <p>Historical fidelity and recovery metrics</p>
+                            </div>
+                            <span class="panel-badge">ANALYTICS</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="dashboardChart"></canvas>
+                        </div>
+                        <div id="dashboardChartEmpty" class="chart-empty">
+                            Run simulations to view performance data.
+                        </div>
+                    </div>
+
+                    <div class="panel activity-panel">
+                        <div class="panel-heading">
+                            <div>
+                                <h3>Recent Activity</h3>
+                                <p>Your latest experiments</p>
+                            </div>
+                            <button class="text-button" data-navigate="history">View all →</button>
+                        </div>
+                        <div id="recentActivity" class="activity-list">
+                            <div class="empty-state">No recent simulations yet.</div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- SIMULATOR -->
+            <section class="page-section" id="simulator">
+
+                <div class="page-heading">
+                    <div>
+                        <p class="eyebrow">QUANTUM EXPERIMENT WORKSPACE</p>
+                        <h1>Quantum Simulator</h1>
+                        <p class="page-description">
+                            Configure quantum error correction experiments and analyze results.
+                        </p>
+                    </div>
+                    <span class="panel-badge">SIMULATION ENGINE</span>
+                </div>
+
+                <div class="simulator-grid">
+
+                    <div class="panel configuration-panel">
+                        <div class="panel-heading">
+                            <div>
+                                <h3>Simulation Configuration</h3>
+                                <p>Set your experiment parameters</p>
+                            </div>
+                            <span class="config-icon">⚙</span>
+                        </div>
+
+                        <form id="simulationForm">
+
+                            <div class="form-group">
+                                <label for="errorCode">Quantum Error Correction Code</label>
+                                <select id="errorCode" name="errorCode" required>
+                                    <option value="bit_flip">Bit Flip Code (3 Qubits)</option>
+                                    <option value="phase_flip">Phase Flip Code (3 Qubits)</option>
+                                    <option value="shor">Shor Code (9 Qubits)</option>
+                                </select>
+                                <small>Choose the quantum error correction method.</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="noiseType">Noise Model</label>
+                                <select id="noiseType" name="noiseType" required>
+                                    <option value="bit_flip">Bit Flip Noise</option>
+                                    <option value="phase_flip">Phase Flip Noise</option>
+                                    <option value="depolarizing">Depolarizing Noise</option>
+                                    <option value="amplitude_damping">Amplitude Damping</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="range-heading">
+                                    <label for="probability">Error Probability</label>
+                                    <strong id="probabilityValue">10%</strong>
+                                </div>
+                                <input type="range" id="probability" name="probability"
+                                    min="0" max="0.5" step="0.01" value="0.1">
+                                <div class="range-labels">
+                                    <span>0%</span>
+                                    <span>50%</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="shots">Number of Shots</label>
+                                <select id="shots" name="shots">
+                                    <option value="256">256 Shots</option>
+                                    <option value="1024" selected>1024 Shots</option>
+                                    <option value="4096">4096 Shots</option>
+                                    <option value="8192">8192 Shots</option>
+                                </select>
+                                <small>Number of circuit executions.</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="targetQubit">Target Qubit</label>
+                                <select id="targetQubit" name="targetQubit">
+                                    <option value="0">Qubit 0</option>
+                                    <option value="1">Qubit 1</option>
+                                    <option value="2">Qubit 2</option>
+                                </select>
+                                <small id="qubitHelp">Select the qubit to apply noise to.</small>
+                            </div>
+
+                            <button type="submit" class="primary-button full-width" id="runSimulation">
+                                <span>⚛</span> Run Simulation
+                            </button>
+
+                            <button type="reset" class="secondary-button full-width" id="resetSimulation">
+                                Reset Configuration
+                            </button>
+
+                            <p id="simulationMessage" class="message" role="status"></p>
+
+                        </form>
+                    </div>
+
+
+                    <div class="panel result-panel">
+                        <div class="panel-heading">
+                            <div>
+                                <h3>Simulation Results</h3>
+                                <p>Quantum error analysis output</p>
+                            </div>
+                            <span class="result-status" id="resultStatus">WAITING</span>
+                        </div>
+
+                        <div id="resultPlaceholder" class="placeholder">
+                            <div class="placeholder-icon">⚛</div>
+                            <h3>Awaiting Simulation</h3>
+                            <p>
+                                Configure your experiment and run a simulation
+                                to see quantum error detection and recovery results.
+                            </p>
+                        </div>
+
+                        <div id="resultContent" hidden>
+
+                            <div class="result-metrics">
+                                <div class="result-metric">
+                                    <span>Fidelity</span>
+                                    <strong id="resultFidelity">--</strong>
+                                </div>
+                                <div class="result-metric">
+                                    <span>Recovery Success Rate</span>
+                                    <strong id="resultRecovery">--</strong>
+                                </div>
+                                <div class="result-metric">
+                                    <span>Logical Error Rate</span>
+                                    <strong id="resultError">--</strong>
+                                </div>
+                            </div>
+
+                            <div class="result-section">
+                                <h4>Syndrome Summary</h4>
+                                <pre id="syndromeSummary">No data available.</pre>
+                            </div>
+
+                            <div class="result-section">
+                                <h4>Interpretation</h4>
+                                <p id="interpretation">No interpretation available.</p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ANALYTICS -->
+            <section class="page-section" id="analytics">
+
+                <div class="page-heading">
+                    <div>
+                        <p class="eyebrow">PERFORMANCE INSIGHTS</p>
+                        <h1>Analytics</h1>
+                        <p class="page-description">
+                            Analyze simulation outcomes and quantum recovery performance.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="analytics-stats stats-grid">
+
+                    <div class="stat-card">
+                        <span class="stat-label">TOTAL EXPERIMENTS</span>
+                        <h2 id="analyticsTotal">0</h2>
+                    </div>
+
+                    <div class="stat-card">
+                        <span class="stat-label">AVERAGE FIDELITY</span>
+                        <h2 id="analyticsFidelity">--</h2>
+                    </div>
+
+                    <div class="stat-card">
+                        <span class="stat-label">SUCCESSFUL RECOVERY</span>
+                        <h2 id="analyticsRecovery">--</h2>
+                    </div>
+
+                    <div class="stat-card">
+                        <span class="stat-label">LOGICAL ERROR RATE</span>
+                        <h2 id="analyticsError">--</h2>
+                    </div>
+
+                </div>
+
+                <div class="analytics-grid">
+
+                    <div class="panel chart-panel">
+                        <div class="panel-heading">
+                            <div>
+                                <h3>Fidelity Trend</h3>
+                                <p>Fidelity across recorded simulations</p>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="fidelityChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="panel chart-panel">
+                        <div class="panel-heading">
+                            <div>
+                                <h3>Error Distribution</h3>
+                                <p>Noise models used in experiments</p>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="noiseChart"></canvas>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- HISTORY -->
+            <section class="page-section" id="history">
+
+                <div class="page-heading">
+                    <div>
+                        <p class="eyebrow">EXPERIMENT RECORDS</p>
+                        <h1>Simulation History</h1>
+                        <p class="page-description">
+                            Review and export your previously recorded experiments.
+                        </p>
+                    </div>
+
+                    <button class="secondary-button" id="exportHistory">
+                        ↓ Export CSV
+                    </button>
+                </div>
+
+                <div class="panel table-panel">
+
+                    <div class="panel-heading">
+                        <div>
+                            <h3>All Simulations</h3>
+                            <p>Experiment records from your database</p>
+                        </div>
+
+                        <button class="text-button" id="refreshHistory">↻ Refresh</button>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Correction Code</th>
+                                    <th>Noise Model</th>
+                                    <th>Probability</th>
+                                    <th>Shots</th>
+                                    <th>Fidelity</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="historyBody">
+                                <tr>
+                                    <td colspan="7" class="empty-row">
+                                        No simulations recorded yet.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- LEARNING CENTER -->
+            <section class="page-section" id="learning">
+
+                <div class="page-heading">
+                    <div>
+                        <p class="eyebrow">QUANTUM KNOWLEDGE HUB</p>
+                        <h1>Learning Center</h1>
+                        <p class="page-description">
+                            Understand the science behind quantum errors and correction.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="learning-grid">
+
+                    <article class="panel learning-card">
+                        <div class="learning-icon">⚛</div>
+                        <h3>What is a Qubit?</h3>
+                        <p>
+                            A quantum bit is the fundamental unit of quantum information.
+                            Unlike a classical bit, it can exist in a superposition of
+                            the states |0⟩ and |1⟩.
+                        </p>
+                    </article>
+
+                    <article class="panel learning-card">
+                        <div class="learning-icon">⚠</div>
+                        <h3>Quantum Noise</h3>
+                        <p>
+                            Quantum noise is unwanted disturbance in a quantum system.
+                            It can change quantum states and damage stored information.
+                        </p>
+                    </article>
+
+                    <article class="panel learning-card">
+                        <div class="learning-icon">↔</div>
+                        <h3>Bit Flip Error</h3>
+                        <p>
+                            A bit flip error changes the computational basis state
+                            |0⟩ into |1⟩ or |1⟩ into |0⟩.
+                        </p>
+                    </article>
+
+                    <article class="panel learning-card">
+                        <div class="learning-icon">◈</div>
+                        <h3>Phase Flip Error</h3>
+                        <p>
+                            A phase flip error changes the relative phase of a quantum
+                            state without necessarily changing its computational value.
+                        </p>
+                    </article>
+
+                    <article class="panel learning-card">
+                        <div class="learning-icon">⌁</div>
+                        <h3>Error Syndromes</h3>
+                        <p>
+                            Syndrome measurements provide information about errors
+                            without directly measuring the encoded logical information.
+                        </p>
+                    </article>
+
+                    <article class="panel learning-card">
+                        <div class="learning-icon">✧</div>
+                        <h3>Quantum Recovery</h3>
+                        <p>
+                            Recovery operations use syndrome information to correct
+                            detectable errors and protect encoded quantum information.
+                        </p>
+                    </article>
+
+                </div>
+
+                <div class="panel code-info-panel">
+                    <h3>Quantum Error Correction Codes</h3>
+
+                    <div class="code-info-grid">
+                        <div>
+                            <h4>Bit Flip Code</h4>
+                            <p>Uses 3 physical qubits to detect and correct bit flip errors.</p>
+                        </div>
+
+                        <div>
+                            <h4>Phase Flip Code</h4>
+                            <p>Uses 3 physical qubits to protect against phase flip errors.</p>
+                        </div>
+
+                        <div>
+                            <h4>Shor Code</h4>
+                            <p>Uses 9 physical qubits to protect against arbitrary single-qubit errors.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- ABOUT -->
+            <section class="page-section" id="about">
+
+                <div class="page-heading">
+                    <div>
+                        <p class="eyebrow">ABOUT THE PROJECT</p>
+                        <h1>About Q-Guard</h1>
+                        <p class="page-description">
+                            A hybrid quantum error detection and recovery simulation platform.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="panel about-panel">
+                    <div class="about-logo">Q</div>
+                    <h2>Q-Guard</h2>
+                    <p class="about-subtitle">Quantum Error Detection & Recovery Simulator</p>
+
+                    <p>
+                        Q-Guard is an educational and experimental platform designed
+                        to demonstrate how quantum error correction works. It combines
+                        a web-based interface, a backend service and a quantum simulation
+                        engine to explore quantum noise, error syndromes and recovery.
+                    </p>
+
+                    <div class="about-features">
+                        <div>⚛ Quantum Circuit Simulation</div>
+                        <div>◈ Noise Model Analysis</div>
+                        <div>✓ Error Detection & Recovery</div>
+                        <div>▥ Performance Analytics</div>
+                    </div>
+
+                    <p class="version-label">PROJECT VERSION 1.0.0</p>
+                </div>
+
+            </section>
+
+
+            <!-- FOOTER -->
+            <footer class="footer">
+                <span>Q-Guard © 2026</span>
+                <span>Quantum Error Detection & Recovery Simulator</span>
+            </footer>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- NOTIFICATION -->
+<div class="notification" id="notification" role="status" aria-live="polite">
+    <span id="notificationIcon">✓</span>
+    <span id="notificationText">Notification</span>
+</div>
+
+
+<!-- JAVASCRIPT -->
+<script src="script.js"></script>
+
+</body>
+</html>
+
+

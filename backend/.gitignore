@@ -1,0 +1,21 @@
+
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+
+# Database files
+database/*.db
+database/*.db-shm
+database/*.db-wal
+
+# Logs
+*.log
+npm-debug.log*
+
+# Operating system
+.DS_Store
+
+# Temporary files
+*.tmp
